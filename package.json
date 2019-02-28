@@ -1,0 +1,14 @@
+{
+  "name": "electron-excel-analysis",
+  "version": "1.0.0",
+  "description": "基于Electron的Excel分析",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/xueenze/electron-excel-analysis.git",
+  "author": "enzexue",
+  "devDependencies": {
+    "electron": "^4.0.6"
+  }
+}
