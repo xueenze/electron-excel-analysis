@@ -1,18 +1,42 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+}
+
 .btn-file{
     position: relative;
     display: inline-block;
     overflow: hidden;
     display: table-cell;
+    cursor: pointer;
 }
 
-.btn-file input{
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    opacity: 0;
-    -ms-filter: 'alpha(opacity=0)';
+.active{
+    display: block !important;
+}
+
+.step{
+    width: 100%;
+    display: none;
 }
 
 .step .input-group{
     margin-bottom: 10px;
+}
+
+.step .columns-names{
+    margin-bottom: 20px;
+}
+
+.step .columns-names .label{
+    display: inline-block;
+    margin: 0 2px;
+    font-size: 12px;
+}
+
+.step .step3-output-source{
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -1,14 +1,14 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
     webPreferences: {
       nodeIntegration: true
@@ -19,7 +19,7 @@ function createWindow () {
   mainWindow.loadFile('window/index.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -50,7 +50,24 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
-})
+});
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+ipcMain.on('open-input-file', function (event) {
+  dialog.showOpenDialog({
+    title: '选择输入的模板文件',
+    properties: ['openFile']
+  }, function (files) {
+      if (files)
+          event.sender.send('input-file-path', files)
+  })
+});
+
+ipcMain.on('open-output-directory', function (event) {
+  dialog.showOpenDialog({
+    title: '选择输出的模板路径',
+    properties: ['openDirectory']
+  }, function (files) {
+      if (files)
+          event.sender.send('output-file-path', files)
+  })
+});
