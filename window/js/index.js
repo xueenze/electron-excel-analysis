@@ -64,7 +64,7 @@ var shell = require('electron').shell;
             let sum = this.excelJsonData.length;
 
             this.excelJsonData.forEach(item => {
-                let fileName = `${item['序号']}-${item['姓名']}`;
+                let fileName = `${item['身份证']}-${item['姓名']}`;
                 let password = item['密码'];
                 delete item['密码'];
     

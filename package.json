@@ -4,7 +4,8 @@
   "description": "基于Electron的Excel分析",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "packageWin32": "electron-packager . 模板分析工具 --platform=win32 --out=./dist --icon=icon.ico --arch=x64 --asar --app-version=1.0  --overwrite"
   },
   "repository": "https://github.com/xueenze/electron-excel-analysis.git",
   "author": "enzexue",
