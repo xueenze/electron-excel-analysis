@@ -48,6 +48,7 @@ var shell = require('electron').shell;
             columns.shift();
             
             const columnNames = $('#columnsNames');
+            columnNames.empty();
 
             columns.forEach(name => {
                 columnNames.append(`<span class="label label-info">${name}</span>`);
@@ -73,13 +74,6 @@ var shell = require('electron').shell;
                 try {
                     xlsx.writeFile(wb, `${this.outputSource}/${fileName}.xlsx`);
                     this.succeedOutput++;
-
-                    $('#progressBar').text(`${(this.succeedOutput * 100 / sum)}%`);
-
-                    $('#progressBar').css(
-                        'width', 
-                        `${(this.succeedOutput * 100 / sum)}%`
-                    );
                 } catch(e) {
                     console.log(e);
                 }
@@ -113,16 +107,55 @@ var shell = require('electron').shell;
         });
 
         const step2 = $('#step2');
-        const step3 = $('#step3');;
-        step2.bind('click', function() {
-            operateItem.operateExcel();
+        const step2Prev = $('#step2-prev');
+        const step2Next = $('#step2-next');
+        const step3 = $('#step3');
+
+        step2Prev.bind('click', function() {
+            step1.addClass('active');
             step2.removeClass('active');
-            step3.addClass('active');
+
+            $('#progressBar').css(
+                'width', 
+                '0%'
+            );
         });
 
-        const step3OutputSource = document.getElementById('step3-output-source');
-        step3OutputSource.addEventListener('click', function(){
-            shell.showItemInFolder(step3OutputSource.innerText);
+        step2Next.bind('click', () => {
+            operateItem.operateExcel();
+
+            // 这里加一个进度条的动画
+            let count = 1;
+
+            var handler = setInterval(function() {
+                if (count > 10) {
+                    clearInterval(handler);
+
+                    step2.removeClass('active');
+                    step3.addClass('active');
+                } else {
+                    $('#progressBar').css(
+                        'width', 
+                        `${count * 10}%`
+                    );
+
+                    $('#progressBar').text(`${count * 10}%`);
+
+                    count++;
+                }
+            }, 200);
+
+            $("#succeed-file-count").text(operateItem.succeedOutput);
+        });
+
+        const step3OutputSource = $('#step3-output-source');
+        const step3Back = $('#step3-back');
+        step3Back.bind('click', function() {
+            step1.addClass('active');
+            step3.removeClass('active');
+        });
+        step3OutputSource.bind('click', function(){
+            shell.showItemInFolder(step3OutputSource.text());
         });
     }
 
