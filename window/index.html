@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Excel分析</title>
+    <title>模板分析工具</title>
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/index.css">
@@ -20,6 +20,14 @@
                 </h3>
             </div>
             <div class="panel-body">
+                <div class="alert alert-info" role="alert">
+                    <p>
+                        <strong>该工具的使用主要是以下几步：</strong>
+                    </p>
+                    <p>第一步：选中输入的模板和输出的文件路径</p>
+                    <p>第二步：解析模板</p>
+                    <p>最后点击输出的文件目录查看文件</p>
+                </div>
                 <div class="alert alert-info" role="alert">
                     <strong>请选中输入的模板和输出的文件路径</strong>
                 </div>
@@ -49,7 +57,7 @@
                         </span>
                     </div>
                 </form>
-                <button id = "step1" class="btn btn-lg btn-primary btn-block" type="submit">下一步</button>
+                <button id = "step1" class="btn btn-lg btn-success btn-block">下一步</button>
             </div>
         </div>
 
@@ -70,12 +78,17 @@
                     模板中探知到以下列：
                 </div>
                 <div id = "columnsNames" class = "columns-names"></div>
+                <div class="alert alert-info" role="alert">
+                    <strong>生成的文件名命名规则：</strong>
+                    身份证号-姓名.xlsx
+                </div>
                 <div class="progress">
-                    <div id = "progressBar" class="progress-bar" role="progressbar" style="min-width: 1em; width: 0%;">
+                    <div id = "progressBar" class="progress-bar progress-bar-striped active" role="progressbar" style="min-width: 1em; width: 0%;">
                         0%
                     </div>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">开始解析</button>
+                <button id = "step2-prev" class="btn btn-lg btn-primary btn-block" type="submit">上一步</button>
+                <button id = "step2-next" class="btn btn-lg btn-success btn-block" type="submit">开始解析</button>
             </div>
         </div>
 
@@ -90,12 +103,14 @@
             <div class="panel-body">
                 <div class="alert alert-success" role="alert">
                     <strong>解析成功！</strong>
+                    共生成 <strong id = "succeed-file-count"></strong> 个文件，
                     请到指定目录下查看生成的文件
                 </div>
                 <div class="alert alert-success" role="alert">
                     <strong>生成目录: </strong>
                     <span id = "step3-output-source" class = "step3-output-source"></span>
                 </div>
+                <button id = "step3-back" class="btn btn-lg btn-success btn-block" type="submit">返回第一步</button>
             </div>
         </div>
     </div>
